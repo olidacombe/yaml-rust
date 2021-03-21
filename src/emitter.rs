@@ -137,7 +137,7 @@ impl<'a> YamlEmitter<'a> {
     /// # Examples
     ///
     /// ```rust
-    /// use yaml_rust::{Yaml, YamlEmitter, YamlLoader};
+    /// use yaml_rust_davvid::{Yaml, YamlEmitter, YamlLoader};
     ///
     /// let input = r#"{foo: "bar!\nbar!", baz: 42}"#;
     /// let parsed = YamlLoader::load_from_str(input).unwrap();

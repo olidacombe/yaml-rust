@@ -5,18 +5,19 @@
 //!
 //! # Usage
 //!
-//! This crate is [on github](https://github.com/chyh1990/yaml-rust) and can be
-//! used by adding `yaml-rust` to the dependencies in your project's `Cargo.toml`.
+//! This crate is [on github](https://github.com/davvid/yaml-rust) and can be
+//! used by adding `yaml-rust-davvid` to the dependencies in your project's
+//! `Cargo.toml`.
 //!
 //! ```toml
-//! [dependencies.yaml-rust]
-//! git = "https://github.com/chyh1990/yaml-rust.git"
+//! [dependencies.yaml-rust-davvid]
+//! git = "https://github.com/davvid/yaml-rust.git"
 //! ```
 //!
 //! And this in your crate root:
 //!
 //! ```rust
-//! extern crate yaml_rust;
+//! extern crate yaml_rust_davvid;
 //! ```
 //!
 //! Parse a string into `Vec<Yaml>` and then serialize it as a YAML string.
@@ -24,7 +25,7 @@
 //! # Examples
 //!
 //! ```
-//! use yaml_rust::{YamlLoader, YamlEmitter};
+//! use yaml_rust_davvid::{YamlLoader, YamlEmitter};
 //!
 //! let docs = YamlLoader::load_from_str("[1, 2, 3]").unwrap();
 //! let doc = &docs[0]; // select the first document
