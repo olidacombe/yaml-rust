@@ -202,12 +202,10 @@ impl<'a> YamlEmitter<'a> {
                         write!(self.writer, "{}", line)?;
                     }
                     self.level -= 1;
+                } else if need_quotes(v) {
+                    escape_str(self.writer, v)?;
                 } else {
-                    if need_quotes(v) {
-                        escape_str(self.writer, v)?;
-                    } else {
-                        write!(self.writer, "{}", v)?;
-                    }
+                    write!(self.writer, "{}", v)?;
                 }
 
                 Ok(())
@@ -261,10 +259,7 @@ impl<'a> YamlEmitter<'a> {
         } else {
             self.level += 1;
             for (cnt, (k, v)) in h.iter().enumerate() {
-                let complex_key = match *k {
-                    Yaml::Hash(_) | Yaml::Array(_) => true,
-                    _ => false,
-                };
+                let complex_key = matches!(*k, Yaml::Hash(_) | Yaml::Array(_));
                 if cnt > 0 {
                     writeln!(self.writer)?;
                     self.write_indent()?;
@@ -342,14 +337,12 @@ fn need_quotes(string: &str) -> bool {
         string.starts_with(' ') || string.ends_with(' ')
     }
 
-    string == ""
+    string.is_empty()
         || need_quotes_spaces(string)
-        || string.starts_with(|character: char| match character {
-            '&' | '*' | '?' | '|' | '-' | '<' | '>' | '=' | '!' | '%' | '@' => true,
-            _ => false,
-        })
-        || string.contains(|character: char| match character {
-            ':'
+        || string.starts_with(|character: char| matches!(character, '&'
+            | '*' | '?' | '|' | '-' | '<' | '>' | '=' | '!' | '%' | '@'
+        ))
+        || string.contains(|character: char| matches!(character, ':'
             | '{'
             | '}'
             | '['
@@ -365,9 +358,8 @@ fn need_quotes(string: &str) -> bool {
             | '\n'
             | '\r'
             | '\x0e'..='\x1a'
-            | '\x1c'..='\x1f' => true,
-            _ => false,
-        })
+            | '\x1c'..='\x1f'
+        ))
         || [
             // http://yaml.org/type/bool.html
             // Note: 'y', 'Y', 'n', 'N', is not quoted deliberately, as in libyaml. PyYAML also parse
