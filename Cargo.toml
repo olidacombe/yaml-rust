@@ -5,11 +5,11 @@ authors = [
     "Yuheng Chen <yuhengchen@sensetime.com>",
     "David Aguilar <davvid@gmail.com>"
 ]
-homepage = "http://chyh1990.github.io/yaml-rust/"
+homepage = "https://davvid.github.io/yaml-rust"
 documentation = "https://docs.rs/yaml-rust"
 license = "MIT/Apache-2.0"
 description = "The missing YAML 1.2 parser for rust"
-repository = "https://github.com/chyh1990/yaml-rust"
+repository = "https://github.com/davvid/yaml-rust"
 readme = "README.md"
 edition = "2018"
 

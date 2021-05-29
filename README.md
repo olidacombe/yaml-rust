@@ -2,8 +2,7 @@
 
 The missing YAML 1.2 implementation for Rust.
 
-[![Travis](https://travis-ci.org/chyh1990/yaml-rust.svg?branch=master)](https://travis-ci.org/chyh1990/yaml-rust)
-[![AppVeyor](https://ci.appveyor.com/api/projects/status/scf47535ckp4ylg4?svg=true)](https://ci.appveyor.com/project/chyh1990/yaml-rust)
+[![Travis](https://travis-ci.com/davvid/yaml-rust.svg?branch=main)](https://travis-ci.com/davvid/yaml-rust)
 [![crates.io](https://img.shields.io/crates/v/yaml-rust-davvid.svg)](https://crates.io/crates/yaml-rust-davvid)
 [![docs.rs](https://img.shields.io/badge/api-rustdoc-blue.svg)](https://docs.rs/yaml-rust-davvid)
 
@@ -18,7 +17,7 @@ Add the following to the Cargo.toml of your project:
 
 ```toml
 [dependencies]
-yaml-rust = "0.4"
+yaml-rust = { version = "0.4", package = "yaml-rust-davvid" }
 ```
 
 and import:
