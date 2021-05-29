@@ -1,6 +1,6 @@
 [package]
 name = "yaml-rust-davvid"
-version = "0.4.5" # remember to update html_root_url
+version = "0.5.0" # remember to update html_root_url
 authors = [
     "Yuheng Chen <yuhengchen@sensetime.com>",
     "David Aguilar <davvid@gmail.com>"
