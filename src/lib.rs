@@ -11,7 +11,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! yaml-rust = { version = "0.4.5", package = "yaml-rust-davvid" }
+//! yaml-rust = { version = "0.5", package = "yaml-rust-davvid" }
 //! ```
 //!
 //! And this in your crate root:
