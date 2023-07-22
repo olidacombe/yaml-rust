@@ -194,7 +194,7 @@ fn is_blankz(c: char) -> bool {
 }
 #[inline]
 fn is_digit(c: char) -> bool {
-    ('0'..='9').contains(&c)
+    c.is_ascii_digit()
 }
 #[inline]
 fn is_alpha(c: char) -> bool {
@@ -202,7 +202,7 @@ fn is_alpha(c: char) -> bool {
 }
 #[inline]
 fn is_hex(c: char) -> bool {
-    ('0'..='9').contains(&c) || ('a'..='f').contains(&c) || ('A'..='F').contains(&c)
+    c.is_ascii_digit() || ('a'..='f').contains(&c) || ('A'..='F').contains(&c)
 }
 #[inline]
 fn as_hex(c: char) -> u32 {
@@ -687,7 +687,7 @@ impl<T: Iterator<Item = char>> Scanner<T> {
         }
 
         let is_secondary = handle == "!!";
-        let prefix = self.scan_tag_uri(true, is_secondary, &String::new(), mark)?;
+        let prefix = self.scan_tag_uri(true, is_secondary, "", mark)?;
 
         self.lookahead(1);
 
@@ -723,7 +723,7 @@ impl<T: Iterator<Item = char>> Scanner<T> {
             // Eat '!<'
             self.skip();
             self.skip();
-            suffix = self.scan_tag_uri(false, false, &String::new(), &start_mark)?;
+            suffix = self.scan_tag_uri(false, false, "", &start_mark)?;
 
             if self.ch() != '>' {
                 return Err(ScanError::new(
@@ -741,7 +741,7 @@ impl<T: Iterator<Item = char>> Scanner<T> {
                 if handle == "!!" {
                     secondary = true;
                 }
-                suffix = self.scan_tag_uri(false, secondary, &String::new(), &start_mark)?;
+                suffix = self.scan_tag_uri(false, secondary, "", &start_mark)?;
             } else {
                 suffix = self.scan_tag_uri(false, false, &handle, &start_mark)?;
                 handle = "!".to_owned();

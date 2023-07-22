@@ -279,12 +279,12 @@ impl Yaml {
     // This function falls back to Yaml::String if nothing else matches.
     pub fn from_str(v: &str) -> Yaml {
         if let Some(value) = v.strip_prefix("0x") {
-            if let Ok(i) = i64::from_str_radix(&value, 16) {
+            if let Ok(i) = i64::from_str_radix(value, 16) {
                 return Yaml::Integer(i);
             }
         }
         if let Some(value) = v.strip_prefix("0o") {
-            if let Ok(i) = i64::from_str_radix(&value, 8) {
+            if let Ok(i) = i64::from_str_radix(value, 8) {
                 return Yaml::Integer(i);
             }
         }
@@ -339,7 +339,7 @@ impl IntoIterator for Yaml {
 
     fn into_iter(self) -> Self::IntoIter {
         YamlIter {
-            yaml: self.into_vec().unwrap_or_else(Vec::new).into_iter(),
+            yaml: self.into_vec().unwrap_or_default().into_iter(),
         }
     }
 }
@@ -367,7 +367,7 @@ a: 1
 b: 2.2
 c: [1, 2]
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let doc = &out[0];
         assert_eq!(doc["a"].as_i64().unwrap(), 1i64);
         assert_eq!(doc["b"].as_f64().unwrap(), 2.2f64);
@@ -416,7 +416,7 @@ a7: 你好
 ---
 'a scalar'
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         assert_eq!(out.len(), 3);
     }
 
@@ -428,7 +428,7 @@ a1: &DEFAULT
     b2: d
 a2: *DEFAULT
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let doc = &out[0];
         assert_eq!(doc["a2"]["b1"].as_i64().unwrap(), 4);
     }
@@ -440,7 +440,7 @@ a1: &DEFAULT
     b1: 4
     b2: *DEFAULT
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let doc = &out[0];
         assert_eq!(doc["a1"]["b2"], Yaml::BadValue);
     }
@@ -449,7 +449,7 @@ a1: &DEFAULT
     fn test_github_27() {
         // https://github.com/chyh1990/yaml-rust/issues/27
         let s = "&a";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let doc = &out[0];
         assert_eq!(doc.as_str().unwrap(), "");
     }
@@ -485,7 +485,7 @@ a1: &DEFAULT
 - +12345
 - [ true, false ]
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let doc = &out[0];
 
         assert_eq!(doc[0].as_str().unwrap(), "string");
@@ -497,14 +497,14 @@ a1: &DEFAULT
         assert_eq!(doc[6].as_f64().unwrap(), -1e4);
         assert!(doc[7].is_null());
         assert!(doc[8].is_null());
-        assert_eq!(doc[9].as_bool().unwrap(), true);
-        assert_eq!(doc[10].as_bool().unwrap(), false);
+        assert!(doc[9].as_bool().unwrap());
+        assert!(!doc[10].as_bool().unwrap());
         assert_eq!(doc[11].as_str().unwrap(), "0");
         assert_eq!(doc[12].as_i64().unwrap(), 100);
         assert_eq!(doc[13].as_f64().unwrap(), 2.0);
         assert!(doc[14].is_null());
-        assert_eq!(doc[15].as_bool().unwrap(), true);
-        assert_eq!(doc[16].as_bool().unwrap(), false);
+        assert!(doc[15].as_bool().unwrap());
+        assert!(!doc[16].as_bool().unwrap());
         assert_eq!(doc[17].as_i64().unwrap(), 255);
         assert!(doc[18].is_badvalue());
         assert!(doc[19].is_badvalue());
@@ -522,14 +522,14 @@ a1: &DEFAULT
     fn test_bad_hyphen() {
         // See: https://github.com/chyh1990/yaml-rust/issues/23
         let s = "{-";
-        assert!(YamlLoader::load_from_str(&s).is_err());
+        assert!(YamlLoader::load_from_str(s).is_err());
     }
 
     #[test]
     fn test_issue_65() {
         // See: https://github.com/chyh1990/yaml-rust/issues/65
         let b = "\n\"ll\\\"ll\\\r\n\"ll\\\"ll\\\r\r\r\rU\r\r\rU";
-        assert!(YamlLoader::load_from_str(&b).is_err());
+        assert!(YamlLoader::load_from_str(b).is_err());
     }
 
     #[test]
@@ -573,7 +573,7 @@ a1: &DEFAULT
 - .NAN
 - !!float .INF
 ";
-        let mut out = YamlLoader::load_from_str(&s).unwrap().into_iter();
+        let mut out = YamlLoader::load_from_str(s).unwrap().into_iter();
         let mut doc = out.next().unwrap().into_iter();
 
         assert_eq!(doc.next().unwrap().into_string().unwrap(), "string");
@@ -583,13 +583,13 @@ a1: &DEFAULT
         assert_eq!(doc.next().unwrap().into_i64().unwrap(), -321);
         assert_eq!(doc.next().unwrap().into_f64().unwrap(), 1.23);
         assert_eq!(doc.next().unwrap().into_f64().unwrap(), -1e4);
-        assert_eq!(doc.next().unwrap().into_bool().unwrap(), true);
-        assert_eq!(doc.next().unwrap().into_bool().unwrap(), false);
+        assert!(doc.next().unwrap().into_bool().unwrap());
+        assert!(!doc.next().unwrap().into_bool().unwrap());
         assert_eq!(doc.next().unwrap().into_string().unwrap(), "0");
         assert_eq!(doc.next().unwrap().into_i64().unwrap(), 100);
         assert_eq!(doc.next().unwrap().into_f64().unwrap(), 2.0);
-        assert_eq!(doc.next().unwrap().into_bool().unwrap(), true);
-        assert_eq!(doc.next().unwrap().into_bool().unwrap(), false);
+        assert!(doc.next().unwrap().into_bool().unwrap());
+        assert!(!doc.next().unwrap().into_bool().unwrap());
         assert_eq!(doc.next().unwrap().into_i64().unwrap(), 255);
         assert_eq!(doc.next().unwrap().into_i64().unwrap(), 63);
         assert_eq!(doc.next().unwrap().into_i64().unwrap(), 12345);
@@ -605,7 +605,7 @@ b: ~
 a: ~
 c: ~
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let first = out.into_iter().next().unwrap();
         let mut iter = first.into_hash().unwrap().into_iter();
         assert_eq!(
@@ -631,9 +631,9 @@ c: ~
 1:
     important: false
 ";
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let first = out.into_iter().next().unwrap();
-        assert_eq!(first[0]["important"].as_bool().unwrap(), true);
+        assert!(first[0]["important"].as_bool().unwrap());
     }
 
     #[test]
@@ -707,7 +707,7 @@ subcommands3:
     about: server related commands
             "#;
 
-        let out = YamlLoader::load_from_str(&s).unwrap();
+        let out = YamlLoader::load_from_str(s).unwrap();
         let doc = &out.into_iter().next().unwrap();
 
         println!("{:#?}", doc);
