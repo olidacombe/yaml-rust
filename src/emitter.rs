@@ -34,6 +34,7 @@ pub struct YamlEmitter<'a> {
     writer: &'a mut dyn fmt::Write,
     best_indent: usize,
     compact: bool,
+    multiline_strings: bool,
 
     level: isize,
 }
@@ -110,6 +111,7 @@ impl<'a> YamlEmitter<'a> {
             best_indent: 2,
             compact: true,
             level: -1,
+            multiline_strings: false,
         }
     }
 
@@ -128,6 +130,42 @@ impl<'a> YamlEmitter<'a> {
     /// Determine if this emitter is using 'compact inline notation'.
     pub fn is_compact(&self) -> bool {
         self.compact
+    }
+
+    /// Render strings containing multiple lines in [literal style].
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// use yaml_rust_davvid::{Yaml, YamlEmitter, YamlLoader};
+    ///
+    /// let input = r#"{foo: "bar!\nbar!", baz: 42}"#;
+    /// let parsed = YamlLoader::load_from_str(input).unwrap();
+    /// eprintln!("{:?}", parsed);
+    ///
+    /// let mut output = String::new();
+    /// # {
+    /// let mut emitter = YamlEmitter::new(&mut output);
+    /// emitter.multiline_strings(true);
+    /// emitter.dump(&parsed[0]).unwrap();
+    /// # }
+    ///
+    /// assert_eq!(output.as_str(), "\
+    /// ---
+    /// foo: |
+    ///   bar!
+    ///   bar!
+    /// baz: 42");
+    /// ```
+    ///
+    /// [literal style]: https://yaml.org/spec/1.2/spec.html#id2795688
+    pub fn multiline_strings(&mut self, multiline_strings: bool) {
+        self.multiline_strings = multiline_strings
+    }
+
+    /// Determine if this emitter will emit multiline strings when appropriate.
+    pub fn is_multiline_strings(&self) -> bool {
+        self.multiline_strings
     }
 
     pub fn dump(&mut self, doc: &Yaml) -> EmitResult {
@@ -154,11 +192,22 @@ impl<'a> YamlEmitter<'a> {
             Yaml::Array(ref v) => self.emit_array(v),
             Yaml::Hash(ref h) => self.emit_hash(h),
             Yaml::String(ref v) => {
-                if need_quotes(v) {
+                if self.multiline_strings && v.contains('\n') {
+                    write!(self.writer, "|")?;
+                    self.level += 1;
+                    for line in v.lines() {
+                        writeln!(self.writer)?;
+                        self.write_indent()?;
+                        // It's literal text, so don't escape special chars!
+                        write!(self.writer, "{}", line)?;
+                    }
+                    self.level -= 1;
+                } else if need_quotes(v) {
                     escape_str(self.writer, v)?;
                 } else {
                     write!(self.writer, "{}", v)?;
                 }
+
                 Ok(())
             }
             Yaml::Boolean(v) => {
@@ -210,10 +259,7 @@ impl<'a> YamlEmitter<'a> {
         } else {
             self.level += 1;
             for (cnt, (k, v)) in h.iter().enumerate() {
-                let complex_key = match *k {
-                    Yaml::Hash(_) | Yaml::Array(_) => true,
-                    _ => false,
-                };
+                let complex_key = matches!(*k, Yaml::Hash(_) | Yaml::Array(_));
                 if cnt > 0 {
                     writeln!(self.writer)?;
                     self.write_indent()?;
@@ -291,14 +337,12 @@ fn need_quotes(string: &str) -> bool {
         string.starts_with(' ') || string.ends_with(' ')
     }
 
-    string == ""
+    string.is_empty()
         || need_quotes_spaces(string)
-        || string.starts_with(|character: char| match character {
-            '&' | '*' | '?' | '|' | '-' | '<' | '>' | '=' | '!' | '%' | '@' => true,
-            _ => false,
-        })
-        || string.contains(|character: char| match character {
-            ':'
+        || string.starts_with(|character: char| matches!(character, '&'
+            | '*' | '?' | '|' | '-' | '<' | '>' | '=' | '!' | '%' | '@'
+        ))
+        || string.contains(|character: char| matches!(character, ':'
             | '{'
             | '}'
             | '['
@@ -314,9 +358,8 @@ fn need_quotes(string: &str) -> bool {
             | '\n'
             | '\r'
             | '\x0e'..='\x1a'
-            | '\x1c'..='\x1f' => true,
-            _ => false,
-        })
+            | '\x1c'..='\x1f'
+        ))
         || [
             // http://yaml.org/type/bool.html
             // Note: 'y', 'Y', 'n', 'N', is not quoted deliberately, as in libyaml. PyYAML also parse
@@ -365,7 +408,7 @@ a4:
         println!("emitted:\n{}", writer);
         let docs_new = match YamlLoader::load_from_str(&writer) {
             Ok(y) => y,
-            Err(e) => panic!(format!("{}", e)),
+            Err(e) => panic!("{}", e),
         };
         let doc_new = &docs_new[0];
 
@@ -402,7 +445,7 @@ products:
         }
         let docs_new = match YamlLoader::load_from_str(&writer) {
             Ok(y) => y,
-            Err(e) => panic!(format!("{}", e)),
+            Err(e) => panic!("{}", e),
         };
         let doc_new = &docs_new[0];
         assert_eq!(doc, doc_new);
