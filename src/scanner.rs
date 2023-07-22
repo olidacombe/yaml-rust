@@ -1850,6 +1850,7 @@ mod test {
     }
 
     #[test]
+    #[allow(clippy::cognitive_complexity)]
     fn test_block_sequences() {
         let s = "
 - item 1
@@ -1892,6 +1893,7 @@ mod test {
     }
 
     #[test]
+    #[allow(clippy::cognitive_complexity)]
     fn test_block_mappings() {
         let s = "
 a simple key: a value   # The KEY token is produced here.
@@ -1965,6 +1967,7 @@ key:
     }
 
     #[test]
+    #[allow(clippy::cognitive_complexity)]
     fn test_collections_in_sequence() {
         let s = "
 - - item 1
@@ -2008,6 +2011,7 @@ key:
     }
 
     #[test]
+    #[allow(clippy::cognitive_complexity)]
     fn test_collections_in_mapping() {
         let s = "
 ? a sequence
@@ -2071,6 +2075,7 @@ key:
     }
 
     #[test]
+    #[allow(clippy::cognitive_complexity)]
     fn test_plain_scalar_starting_with_indicators_in_flow() {
         // "Plain scalars must not begin with most indicators, as this would cause ambiguity with
         // other YAML constructs. However, the “:”, “?” and “-” indicators may be used as the first

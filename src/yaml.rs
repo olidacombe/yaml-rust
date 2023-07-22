@@ -455,6 +455,7 @@ a1: &DEFAULT
     }
 
     #[test]
+    #[allow(clippy::cognitive_complexity)]
     fn test_plain_datatype() {
         let s = "
 - 'string'

@@ -67,6 +67,7 @@ pub struct Parser<T> {
     scanner: Scanner<T>,
     states: Vec<State>,
     state: State,
+    #[allow(dead_code)]
     marks: Vec<Marker>,
     token: Option<Token>,
     current: Option<(Event, Marker)>,
