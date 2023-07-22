@@ -12,3 +12,6 @@ check::
 
 clean::
 	cargo clean
+
+fix::
+	cargo clippy --allow-dirty --allow-staged --fix --all -- -D warnings
