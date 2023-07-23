@@ -1,9 +1,9 @@
 #![allow(dead_code)]
 #![allow(non_upper_case_globals)]
-extern crate yaml_rust_davvid;
+extern crate yaml_rust_davvid as yaml_rust;
 
-use yaml_rust_davvid::parser::{Event, EventReceiver, Parser};
-use yaml_rust_davvid::scanner::TScalarStyle;
+use yaml_rust::parser::{Event, EventReceiver, Parser};
+use yaml_rust::scanner::TScalarStyle;
 
 // These names match the names used in the C++ test suite.
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::enum_variant_names))]
@@ -76,8 +76,8 @@ include!("spec_test.rs.inc");
 
 #[test]
 fn test_mapvec_legal() {
-    use yaml_rust_davvid::yaml::{Hash, Yaml};
-    use yaml_rust_davvid::{YamlEmitter, YamlLoader};
+    use yaml_rust::yaml::{Hash, Yaml};
+    use yaml_rust::{YamlEmitter, YamlLoader};
 
     // Emitting a `map<map<seq<_>>, _>` should result in legal yaml that
     // we can parse.

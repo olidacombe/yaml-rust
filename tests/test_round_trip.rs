@@ -1,6 +1,6 @@
-extern crate yaml_rust_davvid;
+extern crate yaml_rust_davvid as yaml_rust;
 
-use yaml_rust_davvid::{Yaml, YamlEmitter, YamlLoader};
+use yaml_rust::{Yaml, YamlEmitter, YamlLoader};
 
 fn roundtrip(original: &Yaml) {
     let mut emitted = String::new();

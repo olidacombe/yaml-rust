@@ -20,17 +20,10 @@ Add the following to the Cargo.toml of your project:
 yaml-rust = { version = "0.5", package = "yaml-rust-davvid" }
 ```
 
-and import:
-
-```rust
-extern crate yaml_rust;
-```
-
 Use `yaml::YamlLoader` to load the YAML documents and access it
 as Vec/HashMap:
 
 ```rust
-extern crate yaml_rust;
 use yaml_rust::{YamlLoader, YamlEmitter};
 
 fn main() {

@@ -15,7 +15,8 @@ use std::vec;
 /// # Examples
 ///
 /// ```
-/// use yaml_rust_davvid::Yaml;
+/// # extern crate yaml_rust_davvid as yaml_rust;
+/// use yaml_rust::Yaml;
 /// let foo = Yaml::from_str("-123"); // convert the string to the appropriate YAML type
 /// assert_eq!(foo.as_i64().unwrap(), -123);
 ///
