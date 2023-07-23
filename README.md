@@ -2,7 +2,7 @@
 
 The missing YAML 1.2 implementation for Rust.
 
-[![Travis](https://travis-ci.com/davvid/yaml-rust.svg?branch=main)](https://travis-ci.com/davvid/yaml-rust)
+[![Build status](https://github.com/davvid/yaml-rust/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/davvid/yaml-rust/actions/workflows/ci.yml)
 [![crates.io](https://img.shields.io/crates/v/yaml-rust-davvid.svg)](https://crates.io/crates/yaml-rust-davvid)
 [![docs.rs](https://img.shields.io/badge/api-rustdoc-blue.svg)](https://docs.rs/yaml-rust-davvid)
 
