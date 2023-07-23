@@ -14,7 +14,7 @@ readme = "README.md"
 edition = "2021"
 
 [dependencies]
-linked-hash-map = "0.5.3"
+hashlink = "0.8"
 
 [dev-dependencies]
 quickcheck = "0.9"

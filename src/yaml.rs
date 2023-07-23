@@ -1,6 +1,6 @@
 use crate::parser::*;
 use crate::scanner::{Marker, ScanError, TScalarStyle, TokenType};
-use linked_hash_map::LinkedHashMap;
+use hashlink::LinkedHashMap;
 use std::collections::BTreeMap;
 use std::f64;
 use std::i64;
