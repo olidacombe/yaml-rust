@@ -1,7 +1,7 @@
+use crate::yaml::{Hash, Yaml};
 use std::convert::From;
 use std::error::Error;
 use std::fmt::{self, Display};
-use crate::yaml::{Hash, Yaml};
 
 #[derive(Copy, Clone, Debug)]
 pub enum EmitError {
@@ -339,27 +339,32 @@ fn need_quotes(string: &str) -> bool {
 
     string.is_empty()
         || need_quotes_spaces(string)
-        || string.starts_with(|character: char| matches!(character, '&'
-            | '*' | '?' | '|' | '-' | '<' | '>' | '=' | '!' | '%' | '@'
-        ))
-        || string.contains(|character: char| matches!(character, ':'
-            | '{'
-            | '}'
-            | '['
-            | ']'
-            | ','
-            | '#'
-            | '`'
-            | '\"'
-            | '\''
-            | '\\'
-            | '\0'..='\x06'
-            | '\t'
-            | '\n'
-            | '\r'
-            | '\x0e'..='\x1a'
-            | '\x1c'..='\x1f'
-        ))
+        || string.starts_with(|character: char| {
+            matches!(
+                character,
+                '&' | '*' | '?' | '|' | '-' | '<' | '>' | '=' | '!' | '%' | '@'
+            )
+        })
+        || string.contains(|character: char| {
+            matches!(character, ':'
+                | '{'
+                | '}'
+                | '['
+                | ']'
+                | ','
+                | '#'
+                | '`'
+                | '\"'
+                | '\''
+                | '\\'
+                | '\0'..='\x06'
+                | '\t'
+                | '\n'
+                | '\r'
+                | '\x0e'..='\x1a'
+                | '\x1c'..='\x1f'
+            )
+        })
         || [
             // http://yaml.org/type/bool.html
             // Note: 'y', 'Y', 'n', 'N', is not quoted deliberately, as in libyaml. PyYAML also parse
@@ -674,5 +679,4 @@ a:
 
         assert_eq!(s, writer);
     }
-
 }
