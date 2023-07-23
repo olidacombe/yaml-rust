@@ -38,7 +38,7 @@
 //!
 //! ```
 
-#![doc(html_root_url = "https://docs.rs/yaml-rust-davvid/0.5.1")]
+#![doc(html_root_url = "https://docs.rs/yaml-rust-davvid/0.5.2")]
 #![cfg_attr(feature = "cargo-clippy", allow(renamed_and_removed_lints))]
 #![cfg_attr(feature = "cargo-clippy", warn(cognitive_complexity))]
 #![cfg_attr(
