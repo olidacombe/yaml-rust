@@ -1,0 +1,42 @@
+# This is a garden file for use with Garden.
+# https://gitlab.com/garden-rs/garden
+#
+# usage:
+#   garden <cmd> [-- [<args>...]]
+# examples:
+#   garden check
+commands:
+  bench: cargo bench "$@"
+  build: cargo build "$@"
+  check: garden -vv cmd . check/clippy check/fmt
+  check/clippy: cargo clippy --all "$@" -- -D warnings
+  check/fmt: cargo fmt --check "$@"
+  clean: cargo clean "$@"
+  coverage: cargo kcov "$@"
+  fix: cargo clippy --all --fix "$@" -- -D warnings
+  fmt: cargo fmt "$@"
+  test: cargo test "$@"
+  update: cargo update "$@"
+  watch: cargo watch --shell "garden build && garden check && garden test"
+
+trees:
+  yaml-rust:
+    path: ${GARDEN_CONFIG_DIR}
+    url: "git@github.com:davvid/yaml-rust.git"
+    remotes:
+      byte1234: "git@github.com:byte1234/yaml-rust.git"
+      ramosbugs: "git@github.com:ramosbugs/yaml-rust.git"
+      yaml-rust: "git@github.com:chyh1990/yaml-rust.git"
+    gitconfig:
+      remote.yaml-rust.fetch:
+        - "+refs/heads/*:refs/remotes/yaml-rust/*"
+        # Access yaml-rust pull requests as yaml-rust/pull/*
+        - "+refs/pull/*/head:refs/remotes/yaml-rust/pull/*"
+    notes:
+      byte1234: |
+        replace linked_hash_map with hashlink
+        https://github.com/chyh1990/yaml-rust/pull/157
+      ramosbugs: |
+        emit multi-line string values as block scalars
+        https://github.com/chyh1990/yaml-rust/pull/136
+      yaml-rust: the original yaml-rust repository
