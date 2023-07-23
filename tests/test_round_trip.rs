@@ -72,11 +72,11 @@ fn test_issue133() {
 #[test]
 fn test_newline() {
     let y = Yaml::Array(vec![Yaml::String("\n".to_owned())]);
-    test_round_trip(&y);
+    roundtrip(&y);
 }
 
 #[test]
 fn test_crlf() {
     let y = Yaml::Array(vec![Yaml::String("\r\n".to_owned())]);
-    test_round_trip(&y);
+    roundtrip(&y);
 }
