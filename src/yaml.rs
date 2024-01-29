@@ -214,39 +214,35 @@ impl YamlLoader {
 }
 
 pub struct YamlDecoder<T: std::io::Read> {
-  source: T,
-  trap: encoding::types::DecoderTrap,
+    source: T,
+    trap: encoding::types::DecoderTrap,
 }
 
-
 impl<T: std::io::Read> YamlDecoder<T> {
-  pub fn read(source: T) -> YamlDecoder<T> {
-    YamlDecoder{
-      source: source,
-      trap: encoding::DecoderTrap::Strict,
+    pub fn read(source: T) -> YamlDecoder<T> {
+        YamlDecoder {
+            source,
+            trap: encoding::DecoderTrap::Strict,
+        }
     }
-  }
 
-  pub fn encoding_trap(&mut self, trap: encoding::types::DecoderTrap) -> &mut Self {
-    self.trap = trap;
-    self
-  }
+    pub fn encoding_trap(&mut self, trap: encoding::types::DecoderTrap) -> &mut Self {
+        self.trap = trap;
+        self
+    }
 
-  pub fn decode(&mut self) -> Result<Vec<Yaml>, LoadError> {
-    let mut buffer = Vec::new();
-    self.source.read_to_end(&mut buffer)?;
+    pub fn decode(&mut self) -> Result<Vec<Yaml>, LoadError> {
+        let mut buffer = Vec::new();
+        self.source.read_to_end(&mut buffer)?;
 
-    // Decodes the input buffer using either UTF-8, UTF-16LE or UTF-16BE depending on the BOM codepoint.
-    // If the buffer doesn't start with a BOM codepoint, it will use a fallback encoding obtained by
-    // detect_utf16_endianness.
-    let (res, _) = encoding::types::decode(
-        &buffer,
-        self.trap,
-        detect_utf16_endianness(&buffer),
-    );
-    let s = res.map_err(LoadError::Decode)?;
-    YamlLoader::load_from_str(&s).map_err(LoadError::Scan)
-  }
+        // Decodes the input buffer using either UTF-8, UTF-16LE or UTF-16BE depending on the BOM codepoint.
+        // If the buffer doesn't start with a BOM codepoint, it will use a fallback encoding obtained by
+        // detect_utf16_endianness.
+        let (res, _) =
+            encoding::types::decode(&buffer, self.trap, detect_utf16_endianness(&buffer));
+        let s = res.map_err(LoadError::Decode)?;
+        YamlLoader::load_from_str(&s).map_err(LoadError::Scan)
+    }
 }
 
 /// The encoding crate knows how to tell apart UTF-8 from UTF-16LE and utf-16BE, when the
@@ -901,7 +897,10 @@ a\xa9: 1
 b: 2.2
 c: [1, 2]
 ";
-        let out = YamlDecoder::read(s as &[u8]).encoding_trap(encoding::DecoderTrap::Ignore).decode().unwrap();
+        let out = YamlDecoder::read(s as &[u8])
+            .encoding_trap(encoding::DecoderTrap::Ignore)
+            .decode()
+            .unwrap();
         let doc = &out[0];
         println!("GOT: {:?}", doc);
         assert_eq!(doc["a"].as_i64().unwrap(), 1i64);
