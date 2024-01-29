@@ -121,3 +121,8 @@ Fork & PR on Github.
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any
 additional terms or conditions.
+
+## Acknowlegements
+
+`yaml-rust-davvid` is a fork of the original, and now unmaintained
+[yaml-rust](https://github.com/chyh1990/yaml-rust) parser by [chyh1990](https://github.com/chyh1990).
