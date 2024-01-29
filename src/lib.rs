@@ -11,7 +11,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! yaml-rust = { version = "0.5", package = "yaml-rust-davvid" }
+//! yaml-rust = { version = "0.6", package = "yaml-rust-davvid" }
 //! ```
 //!
 //! Parse a string into `Vec<Yaml>` and then serialize it as a YAML string.
