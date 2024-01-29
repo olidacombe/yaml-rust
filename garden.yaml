@@ -16,6 +16,9 @@ commands:
   check/fmt: cargo fmt --check "$@"
   clean: cargo clean "$@"
   coverage: cargo kcov "$@"
+  doc: |
+    cargo doc --no-deps --package yaml-rust-davvid "$@"
+    rsync -ar --exclude=.git --delete ${GARDEN_ROOT}/target/doc/ ${GARDEN_ROOT}/pages/doc/
   fix: cargo clippy --all --fix "$@" -- -D warnings
   fmt: cargo fmt "$@"
   test: cargo test "$@"
@@ -66,3 +69,6 @@ trees:
       - gyscos: Support for tag directives (Scalar parser)
         link: https://github.com/chyh1990/yaml-rust/pull/135
         link: https://github.com/chyh1990/yaml-rust/issues/35
+  pages:
+    worktree: yaml-rust
+    branch: pages
