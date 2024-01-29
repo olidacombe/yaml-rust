@@ -1,4 +1,5 @@
 use crate::yaml::{Hash, Yaml};
+
 use std::convert::From;
 use std::error::Error;
 use std::fmt::{self, Display};
@@ -12,6 +13,13 @@ pub enum EmitError {
 impl Error for EmitError {
     fn cause(&self) -> Option<&dyn Error> {
         None
+    }
+
+    fn description(&self) -> &str {
+        match *self {
+            EmitError::FmtError(ref err) => err.description(),
+            EmitError::BadHashmapKey => "bad hashmap key",
+        }
     }
 }
 
