@@ -12,6 +12,10 @@
 
 **Development**:
 
+- The documentation was updated to include a security note mentioning that
+  yaml-rust is safe because it does not interpret types.
+  ([#195](https://github.com/chyh1990/yaml-rust/pull/195))
+
 - Updated to quickcheck 1.0.
   ([#188](https://github.com/chyh1990/yaml-rust/pull/188))
 
