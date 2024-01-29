@@ -28,6 +28,7 @@ trees:
     url: "git@github.com:davvid/yaml-rust.git"
     remotes:
       byte1234: "git@github.com:byte1234/yaml-rust.git"
+      jturner314: "git@github.com:jturner314/yaml-rust.git"
       oldaccountdeadname: "git@github.com:oldaccountdeadname/yaml-rust.git"
       ramosbugs: "git@github.com:ramosbugs/yaml-rust.git"
       rocallahan: "git@github.com:rocallahan/yaml-rust.git"
@@ -47,3 +48,5 @@ trees:
         link: https://github.com/chyh1990/yaml-rust/pull/179
       - rocallahan: Update to quickcheck 1.0
         link: https://github.com/chyh1990/yaml-rust/pull/188
+      - jturner314: Add byte index to error message
+        link: https://github.com/chyh1990/yaml-rust/pull/176
