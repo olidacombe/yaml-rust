@@ -2,22 +2,20 @@ extern crate yaml_rust_davvid as yaml_rust;
 
 mod dump_yaml;
 
-use std::path::Path;
+use std::env;
 use std::fs::File;
 use std::io::Read;
-use std::env;
-use yaml_rust::yaml;
+use std::path::Path;
 use yaml_rust::scanner;
+use yaml_rust::yaml;
 
 struct IncludeParser<'a> {
-    root: &'a Path
+    root: &'a Path,
 }
 
 impl<'a> IncludeParser<'a> {
     fn new(root: &'a Path) -> IncludeParser {
-        IncludeParser {
-            root
-        }
+        IncludeParser { root }
     }
 }
 
@@ -26,18 +24,18 @@ impl<'a> yaml::YamlScalarParser for IncludeParser<'a> {
         if let scanner::TokenType::Tag(ref handle, ref suffix) = *tag {
             if (*handle == "!" || *handle == "yaml-rust.include.prefix") && *suffix == "include" {
                 let mut content = String::new();
-                return Some(match File::open(self.root.join(value)){
+                return Some(match File::open(self.root.join(value)) {
                     Ok(mut f) => {
                         let _ = f.read_to_string(&mut content);
                         let mut loader = yaml::YamlLoader::new();
                         loader.register_scalar_parser(self);
                         match loader.parse_from_str(&content.to_owned()) {
                             Ok(mut docs) => docs.pop().unwrap(),
-                            Err(_) => yaml::Yaml::BadValue
+                            Err(_) => yaml::Yaml::BadValue,
                         }
                     }
-                    Err(_) => yaml::Yaml::BadValue
-                })
+                    Err(_) => yaml::Yaml::BadValue,
+                });
             }
         }
         None

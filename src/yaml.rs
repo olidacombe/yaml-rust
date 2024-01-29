@@ -503,8 +503,8 @@ impl Iterator for YamlIter {
 
 #[cfg(test)]
 mod test {
-    use crate::yaml::*;
     use crate::scanner::*;
+    use crate::yaml::*;
     use std::f64;
 
     #[test]
