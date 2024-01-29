@@ -277,6 +277,7 @@ impl Yaml {
     /// replace it with a given value `other`. Otherwise, return self unchanged.
     ///
     /// ```
+    /// # extern crate yaml_rust_davvid as yaml_rust;
     /// use yaml_rust::yaml::Yaml;
     ///
     /// assert_eq!(Yaml::BadValue.or(Yaml::Integer(3)),  Yaml::Integer(3));
