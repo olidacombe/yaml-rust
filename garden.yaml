@@ -63,5 +63,6 @@ trees:
         link: https://github.com/chyh1990/yaml-rust/pull/186
       - mkmik: Implement load_from_bytes
         link: https://github.com/chyh1990/yaml-rust/pull/156
-      - gyscos: Scalar parser
+      - gyscos: Support for tag directives (Scalar parser)
         link: https://github.com/chyh1990/yaml-rust/pull/135
+        link: https://github.com/chyh1990/yaml-rust/issues/35

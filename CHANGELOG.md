@@ -10,11 +10,15 @@
 - Yaml now has `or` and `borrowed_or` methods.
   ([#179](https://github.com/chyh1990/yaml-rust/pull/179))
 
-- The `info` field has been expoed via a new `Yaml::info()` API method.
+- The `info` field has been exposed via a new `Yaml::info()` API method.
   ([#190](https://github.com/chyh1990/yaml-rust/pull/190))
 
 - `Yaml::load_from_bytes()` is now available.
   ([#156](https://github.com/chyh1990/yaml-rust/pull/156))
+
+- The parser now supports tag directives.
+  ([#135](https://github.com/chyh1990/yaml-rust/pull/135)
+  ([#35](https://github.com/chyh1990/yaml-rust/issues/35)
 
 **Development**:
 
