@@ -124,7 +124,7 @@ key1:a2
         );
         assert_eq!(
             try_fail(s).unwrap_err().to_string(),
-            "mapping values are not allowed in this context at line 4 column 4"
+            "mapping values are not allowed in this context at line 4 column 4, i.e. byte index 26"
         );
     }
 }
