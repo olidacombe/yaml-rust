@@ -37,10 +37,10 @@ trees:
         # Access yaml-rust pull requests as yaml-rust/pull/*
         - "+refs/pull/*/head:refs/remotes/yaml-rust/pull/*"
     notes:
-      byte1234: |
-        replace linked_hash_map with hashlink
-        https://github.com/chyh1990/yaml-rust/pull/157
-      ramosbugs: |
-        emit multi-line string values as block scalars
-        https://github.com/chyh1990/yaml-rust/pull/136
-      yaml-rust: the original yaml-rust repository
+      - byte1234: replace linked_hash_map with hashlink
+        link: https://github.com/chyh1990/yaml-rust/pull/157
+      - ramosbugs: emit multi-line string values as block scalars
+        link: https://github.com/chyh1990/yaml-rust/pull/136
+      - yaml-rust: the original yaml-rust repository
+      - oldaccountdeadname: introduce or function
+        link: https://github.com/chyh1990/yaml-rust/pull/179
