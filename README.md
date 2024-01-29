@@ -17,7 +17,7 @@ Add the following to the Cargo.toml of your project:
 
 ```toml
 [dependencies]
-yaml-rust = { version = "0.5", package = "yaml-rust-davvid" }
+yaml-rust = { version = "0.6", package = "yaml-rust-davvid" }
 ```
 
 Use `yaml::YamlLoader` to load the YAML documents and access it
