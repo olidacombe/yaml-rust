@@ -10,6 +10,9 @@
 - Yaml now has `or` and `borrowed_or` methods.
   ([#179](https://github.com/chyh1990/yaml-rust/pull/179))
 
+- The `info` field has been expoed via a new `Yaml::info()` API method.
+  ([#190](https://github.com/chyh1990/yaml-rust/pull/190))
+
 **Development**:
 
 - The documentation was updated to include a security note mentioning that
@@ -18,6 +21,7 @@
 
 - Updated to quickcheck 1.0.
   ([#188](https://github.com/chyh1990/yaml-rust/pull/188))
+
 
 ## v0.5.2
 
