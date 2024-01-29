@@ -30,6 +30,7 @@ trees:
       byte1234: "git@github.com:byte1234/yaml-rust.git"
       oldaccountdeadname: "git@github.com:oldaccountdeadname/yaml-rust.git"
       ramosbugs: "git@github.com:ramosbugs/yaml-rust.git"
+      rocallahan: "git@github.com:rocallahan/yaml-rust.git"
       yaml-rust: "git@github.com:chyh1990/yaml-rust.git"
     gitconfig:
       remote.yaml-rust.fetch:
@@ -44,3 +45,5 @@ trees:
       - yaml-rust: the original yaml-rust repository
       - oldaccountdeadname: introduce or function
         link: https://github.com/chyh1990/yaml-rust/pull/179
+      - rocallahan: Update to quickcheck 1.0
+        link: https://github.com/chyh1990/yaml-rust/pull/188

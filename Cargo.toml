@@ -17,4 +17,4 @@ edition = "2021"
 hashlink = "0.8"
 
 [dev-dependencies]
-quickcheck = "0.9"
+quickcheck = "1.0"
