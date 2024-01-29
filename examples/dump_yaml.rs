@@ -32,6 +32,7 @@ pub fn dump_node(doc: &yaml::Yaml, indent: usize) {
     }
 }
 
+#[allow(dead_code)]
 fn main() {
     let args: Vec<_> = env::args().collect();
     let mut f = File::open(&args[1]).unwrap();

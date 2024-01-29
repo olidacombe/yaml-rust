@@ -1,4 +1,4 @@
-extern crate yaml_rust;
+extern crate yaml_rust_davvid as yaml_rust;
 
 mod dump_yaml;
 
@@ -16,7 +16,7 @@ struct IncludeParser<'a> {
 impl<'a> IncludeParser<'a> {
     fn new(root: &'a Path) -> IncludeParser {
         IncludeParser {
-            root: root
+            root
         }
     }
 }
@@ -44,6 +44,7 @@ impl<'a> yaml::YamlScalarParser for IncludeParser<'a> {
     }
 }
 
+#[allow(dead_code)]
 fn main() {
     let args: Vec<_> = env::args().collect();
     let mut f = File::open(&args[1]).unwrap();

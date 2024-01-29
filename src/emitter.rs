@@ -14,13 +14,6 @@ impl Error for EmitError {
     fn cause(&self) -> Option<&dyn Error> {
         None
     }
-
-    fn description(&self) -> &str {
-        match *self {
-            EmitError::FmtError(ref err) => err.description(),
-            EmitError::BadHashmapKey => "bad hashmap key",
-        }
-    }
 }
 
 impl Display for EmitError {

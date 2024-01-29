@@ -1,5 +1,6 @@
 use crate::parser::*;
 use crate::scanner::{Marker, ScanError, TScalarStyle, TokenType};
+
 use hashlink::LinkedHashMap;
 use std::collections::BTreeMap;
 use std::f64;
@@ -73,6 +74,7 @@ fn parse_f64(v: &str) -> Option<f64> {
 /// # Examples
 ///
 /// ```
+/// # extern crate yaml_rust_davvid as yaml_rust;
 ///use yaml_rust::yaml;
 ///use yaml_rust::scanner;
 ///
