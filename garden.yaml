@@ -28,6 +28,7 @@ trees:
     url: "git@github.com:davvid/yaml-rust.git"
     remotes:
       byte1234: "git@github.com:byte1234/yaml-rust.git"
+      gyscos: "git@github.com:gyscos/yaml-rust.git"
       jturner314: "git@github.com:jturner314/yaml-rust.git"
       mathstuf: "git@github.com:mathstuf/yaml-rust.git"
       mkmik: "git@github.com:mkmik/yaml-rust.git"
@@ -62,3 +63,5 @@ trees:
         link: https://github.com/chyh1990/yaml-rust/pull/186
       - mkmik: Implement load_from_bytes
         link: https://github.com/chyh1990/yaml-rust/pull/156
+      - gyscos: Scalar parser
+        link: https://github.com/chyh1990/yaml-rust/pull/135
