@@ -34,6 +34,7 @@ trees:
       oldaccountdeadname: "git@github.com:oldaccountdeadname/yaml-rust.git"
       ramosbugs: "git@github.com:ramosbugs/yaml-rust.git"
       rocallahan: "git@github.com:rocallahan/yaml-rust.git"
+      smoelius: "git@github.com:smoelius/yaml-rust.git"
       yaml-rust: "git@github.com:chyh1990/yaml-rust.git"
     gitconfig:
       remote.yaml-rust.fetch:
@@ -56,3 +57,5 @@ trees:
         link: https://github.com/chyh1990/yaml-rust/pull/195
       - olalonde: Expose info() api
         link: https://github.com/chyh1990/yaml-rust/pull/190
+      - smoelius: Typo
+        link: https://github.com/chyh1990/yaml-rust/pull/186
