@@ -14,16 +14,9 @@
 //! yaml-rust = { version = "0.5", package = "yaml-rust-davvid" }
 //! ```
 //!
-//! And this in your crate root:
-//!
-//! ```rust
-//! // extern crate yaml_rust;
-//! ```
-//!
 //! Parse a string into `Vec<Yaml>` and then serialize it as a YAML string.
 //!
 //! # Examples
-//!
 //! ```
 //! # extern crate yaml_rust_davvid as yaml_rust;
 //! use yaml_rust::{YamlLoader, YamlEmitter};
