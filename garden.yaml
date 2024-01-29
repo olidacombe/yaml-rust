@@ -29,6 +29,7 @@ trees:
     remotes:
       byte1234: "git@github.com:byte1234/yaml-rust.git"
       jturner314: "git@github.com:jturner314/yaml-rust.git"
+      mathstuf: "git@github.com:mathstuf/yaml-rust.git"
       oldaccountdeadname: "git@github.com:oldaccountdeadname/yaml-rust.git"
       ramosbugs: "git@github.com:ramosbugs/yaml-rust.git"
       rocallahan: "git@github.com:rocallahan/yaml-rust.git"
@@ -50,3 +51,5 @@ trees:
         link: https://github.com/chyh1990/yaml-rust/pull/188
       - jturner314: Add byte index to error message
         link: https://github.com/chyh1990/yaml-rust/pull/176
+      - mathstuf: "doc: mention that types are not interpreted"
+        link: https://github.com/chyh1990/yaml-rust/pull/195
