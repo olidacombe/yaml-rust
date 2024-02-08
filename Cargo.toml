@@ -1,15 +1,14 @@
 [package]
-name = "yaml-rust-davvid"
+name = "yaml-rust-olidacombe"
 version = "0.6.0"
 authors = [
     "Yuheng Chen <yuhengchen@sensetime.com>",
-    "David Aguilar <davvid@gmail.com>"
+    "David Aguilar <davvid@gmail.com>",
 ]
-homepage = "https://davvid.github.io/yaml-rust"
-documentation = "https://docs.rs/yaml-rust-davvid"
+documentation = "https://docs.rs/yaml-rust-olidacombe"
 license = "MIT/Apache-2.0"
 description = "The missing YAML 1.2 parser for rust"
-repository = "https://github.com/davvid/yaml-rust"
+repository = "https://github.com/olidacombe/yaml-rust"
 readme = "README.md"
 edition = "2021"
 

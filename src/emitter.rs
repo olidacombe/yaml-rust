@@ -112,7 +112,7 @@ impl<'a> YamlEmitter<'a> {
             best_indent: 2,
             compact: true,
             level: -1,
-            multiline_strings: false,
+            multiline_strings: true,
         }
     }
 
